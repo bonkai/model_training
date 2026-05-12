@@ -1,0 +1,12 @@
+{
+  "_comment": "Per-project forge config. Edit to enable optional automation.",
+  "auto_log": {
+    "enabled": false,
+    "idle_minutes": 10,
+    "recency_window_minutes": 60,
+    "max_events": 200,
+    "min_session_events": 10,
+    "tags_hint": [],
+    "_doc": "Set enabled=true to let ~/Documents/forge/bin/forge-auto-log draft a task file when this project goes idle after recent Claude Code activity. Drafts are saved as tasks/YYYY-MM-DD-NNN-AUTO-*.md for your review."
+  }
+}
