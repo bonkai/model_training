@@ -11,3 +11,16 @@ node_modules/
 *.log
 .idea/
 .vscode/
+
+# ML artifacts
+data/*.txt
+data/*.bin
+data/*.npy
+data/*.npz
+data/cache/
+~/.cache/huggingface/
+checkpoints/
+wandb/
+logs/training/
+*.safetensors
+
