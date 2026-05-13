@@ -29,7 +29,7 @@
 
 *Things to do eventually, in rough priority order. See `2B_Model_Development_Plan.md` for full phase details.*
 
-- Set up `uv` venv tuned for Apple Silicon, install MLX + mlx-lm
+- ✅ ~~Set up `uv` venv tuned for Apple Silicon, install MLX + mlx-lm~~ (2026-05-13: `.venv/` running Python 3.11.8, MLX on GPU)
 - Wire `powermetrics` / `asitop` profiling into training loop
 - W&B account + project, integrate logging
 - Implement toy model end-to-end (data → loss → checkpoint → resume)
