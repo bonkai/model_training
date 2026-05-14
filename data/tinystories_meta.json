@@ -1,0 +1,15 @@
+{
+  "vocab_size": 8192,
+  "dtype": "uint16",
+  "bos_id": 1,
+  "eos_id": 2,
+  "pad_id": 0,
+  "unk_id": 3,
+  "train_tokens": 43171060,
+  "val_tokens": 416638,
+  "train_stories": 197955,
+  "val_stories": 2000,
+  "tokenizer_path": "tokenizer/tinystories_bpe_8k/tokenizer.json",
+  "source_path": "data/tinystories_sample.txt",
+  "build_time_seconds": 30.3
+}
