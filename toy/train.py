@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import math
 import time
+from functools import partial
 from pathlib import Path
 
 import mlx.core as mx
@@ -92,6 +93,21 @@ def main() -> None:
 
     loss_and_grad = nn.value_and_grad(model, loss_fn)
 
+    # JIT the optimizer step. mx.compile traces the function the first call
+    # and reuses the compiled graph after that — usually 2-5× speedup for
+    # training loops on Apple Silicon. We declare model.state and
+    # optimizer.state as compile inputs/outputs so MLX knows their arrays
+    # are mutated.
+    state = [model.state, optimizer.state]
+
+    @partial(mx.compile, inputs=state, outputs=state)
+    def step_fn(x, y):
+        loss, grads = loss_and_grad(model, x, y)
+        if tc.grad_clip is not None and tc.grad_clip > 0:
+            grads, _ = optim.clip_grad_norm(grads, tc.grad_clip)
+        optimizer.update(model, grads)
+        return loss
+
     # ----- resume? -----
     start_step = 0
     checkpoint_dir = PROJECT_ROOT / tc.checkpoint_dir
@@ -121,12 +137,8 @@ def main() -> None:
         lr = cosine_lr(step, tc)
         optimizer.learning_rate = lr
 
-        loss, grads = loss_and_grad(model, x, y)
-        # Gradient clipping
-        if tc.grad_clip is not None and tc.grad_clip > 0:
-            grads, _ = optim.clip_grad_norm(grads, tc.grad_clip)
-        optimizer.update(model, grads)
-        mx.eval(model.parameters(), optimizer.state)
+        loss = step_fn(x, y)
+        mx.eval(state, loss)
 
         running_loss += loss.item()
         running_count += 1
