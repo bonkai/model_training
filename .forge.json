@@ -8,5 +8,21 @@
     "min_session_events": 10,
     "tags_hint": [],
     "_doc": "Set enabled=true to let ~/Documents/forge/bin/forge-auto-log draft a task file when this project goes idle after recent Claude Code activity. Drafts are saved as tasks/YYYY-MM-DD-NNN-AUTO-*.md for your review."
-  }
+  },
+  "layout": {
+    "knowledge_dir": "knowledge",
+    "tasks_dir": "tasks"
+  },
+  "context_priority": [
+    "AGENTS.md",
+    "PLAN.md",
+    "products/INDEX.md",
+    "sessions/INDEX.md",
+    "knowledge/PRINCIPLES.md",
+    "knowledge/MISTAKES.md",
+    "knowledge/WINS.md",
+    "knowledge/HAZARDS.md",
+    "knowledge/DECISIONS.md",
+    "knowledge/TECH_STACK.md"
+  ]
 }
